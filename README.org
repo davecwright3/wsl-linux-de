@@ -1,0 +1,2 @@
+* What this script does
+This script sets up Ubuntu running under the Windows Subsystem for Linux with an XFCE desktop environment. 
