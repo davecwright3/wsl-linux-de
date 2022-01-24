@@ -25,6 +25,9 @@ cp /etc/xrdp/xrdp.ini /etc/xrdp/xrdp.ini.bak
 sed -i 's/max_bpp=32/#max_bpp=32\nmax_bpp=128/g' /etc/xrdp/xrdp.ini
 sed -i 's/xserverbpp=24/#xserverbpp=24\nxserverbpp=128/g' /etc/xrdp/xrdp.ini
 
+# change default server port to 3390 to avoid clashes with default windows RDP server port
+sed -i 's/3389/3390/g' /etc/xrdp/xrdp.ini
+
 # let xsession know we want to use xfce
 echo xfce4-session > ${USER_HOME}/.xsession
 
