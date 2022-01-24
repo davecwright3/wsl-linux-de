@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # @author David Wright <davecwright@knights.ucf.edu>
 # @brief Set up a WSL v2.0 instance with the xfce DE and
