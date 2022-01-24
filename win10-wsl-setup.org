@@ -1,0 +1,93 @@
+#+TITLE: AST 5765 Windows 10 WSL Setup Guide
+#+LATEX_HEADER: \usepackage{svg,amsmath, physics, amssymb, amsfonts, amsthm,empheq,pdfpages, cancel, siunitx}
+#+LATEX_HEADER: \usepackage[margin=0.7in]{geometry}
+#+Latex_header: \theoremstyle{definition}
+#+Latex_header: \newtheorem{theorem}{Theorem}[subsection]
+#+Latex_header: \newtheorem{definition}{Definition}[subsection]
+#+Latex_header:\newtheorem*{note}{Note}
+#+Latex_header:\newtheorem*{remark}{Remark}
+#+Latex_header: \newtheorem{example}{Ex.}[subsection]
+#+Latex_header: \newtheorem{corollary}{Corollary}[theorem]
+
+#+Latex_header:\usepackage{import}
+#+Latex_header:\usepackage{pdfpages}
+#+Latex_header:\usepackage{transparent}
+#+Latex_header:\usepackage{xcolor}
+#+Latex_header: \newcommand{\incfig}[2][1]{\def\svgwidth{#1\columnwidth}\import{./figures/}{#2.pdf_tex}}
+
+#+options: toc:nil date:nil
+
+#+HUGO_SECTION: post/wsl-gui
+#+hugo_type: post
+#+hugo_front_matter_format: yaml
+#+HUGO_BASE_DIR:/home/dave/Dropbox/Documents/personal_docs/academic-kickstart
+#+hugo_weight: auto
+
+* Getting Windows Ready
+In order to get a graphical install of Linux working in the Windows Subsystem for Linux (WSL), we will need version 2.
+WSL2 is only available in Windows 11 or Windows 10, Version 2004, Build 19041 or higher.
+To find out which version of Windows your device is running, press the *Windows logo key + R*, type *winver* in the *Open* box, and then select *OK*.
+If you do not meet the requirements, please update your machine before proceeding.
+* Installing WSL2
+Open PowerShell as Administrator and run (type all of the commands in this document manually, do not copy paste):
+#+BEGIN_SRC
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+#+END_SRC
+Now, restart your machine. Once again open PowerShell as Administrator and run the following command
+#+BEGIN_SRC
+wsl --set-default-version 2
+#+END_SRC
+You might see this message after running that command: *WSL 2 requires an update to its kernel component*.
+If you do, visit https://aka.ms/wsl2kernel and install the latest WSL2 Linux kernel.
+Once you have the kernel installed, run the above command again, and it should complete successfully without showing the message.
+* Installing Ubuntu 20.04
+Open the Microsoft Store and download Ubuntu 20.04 LTS.
+Once it is downloaded, launch it like you would a normal application.
+You will see something that looks like the following picture:
+[[file:figs/ubuntuinstall.png]]
+Create a username and password.
+* Getting a Desktop Environment Working
+We will need to transfer a file from our Windows file system to our Linux file system.
+The Windows ~C:\~ drive is mounted by default at ~/mnt/c/~.
+Go to that directory with the following command,
+#+BEGIN_SRC bash :eval no-export
+cd /mnt/c
+#+END_SRC
+Locate the *wsl-install.sh* script from the WebCourses files.
+Copy it to our Linux home directory with
+#+BEGIN_SRC bash :eval no-export
+cp <path to wsl-install.sh> ~/
+#+END_SRC
+
+\noindent Run this script.
+#+BEGIN_SRC bash :eval no-export
+cd ~
+sudo bash wsl-install.sh
+#+END_SRC
+
+You will be prompted to choose a display manager, choose *gdm3*.
+This script will take a while to run.
+When the script finishes, close your WSL window.
+Then, relaunch it.
+
+* Starting the Desktop Environment
+Now that the script has finished, start the service with
+#+BEGIN_SRC bash
+session start
+#+END_SRC
+Open the built-in Windows 10 remote desktop program.
+Enter *localhost:3389* in the *Computer* box, then hit *Connect*.
+Click *yes* if you are asked if you want to connect.
+Log in with your Linux username and password.
+
+* Tweaking the XFCE Desktop
+The desktop environment (XFCE in our case) attempts to put the display to sleep after 10 min.
+This causes our environment to become unresponsive.
+To fix this, head into the lock screen settings in XFCE.
+You can find this by clicking the magnifying glass icon in your dock and searching for "Light Locker".
+Change your settings to reflect this picture, then apply ("Lock on suspend" will remain on, just make sure to turn off "Enable light-locker" and set "Blank screen after" and "Switch off display after" to "Never").
+#+ATTR_LATEX: :width 10cm
+[[file:figs/lightlocker.png]]
+
+Congratulations! You should be able to follow the linux software install guide from now on.
