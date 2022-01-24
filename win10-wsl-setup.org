@@ -54,7 +54,7 @@ Go to that directory with the following command,
 #+BEGIN_SRC bash :eval no-export
 cd /mnt/c
 #+END_SRC
-Locate the *wsl-install.sh* script from the WebCourses files.
+Locate the *wsl-install.sh* script from the WebCourses (or downloaded) files.
 Copy it to our Linux home directory with
 #+BEGIN_SRC bash :eval no-export
 cp <path to wsl-install.sh> ~/

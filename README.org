@@ -1,2 +1,6 @@
 * What this script does
-This script sets up Ubuntu running under the Windows Subsystem for Linux with an XFCE desktop environment. 
+This script sets up Ubuntu running under the Windows Subsystem for Linux with an XFCE desktop environment.
+
+See instructions at [[file:win10-wsl-setup.org]]
+
+The script and instructions were written for an Astronomical data-analysis course in Fall of 2020.
